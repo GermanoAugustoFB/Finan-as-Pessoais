@@ -14,11 +14,14 @@ export class AppComponent implements OnInit {
 
   public title = 'Finance Manager';
 
-  constructor(private financeService: FinanceService) {}
+  constructor(
+    private financeService: FinanceService
+  ) {}
 
   ngOnInit() {
-    this.financeService.getTransactions('seuTokenJWT').subscribe(transactions => {
+    this.financeService.getTransactions().subscribe(transactions => {
       console.log(transactions);
     });
+    
   }
 }
