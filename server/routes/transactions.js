@@ -6,7 +6,12 @@ const User = require('../models/User');
 const router = express.Router();
 
 router.use(async (req, res, next) => {
-    const token = req.header('Authorization').replace('Bearer ', '');
+    const authHeader = req.header('Authorization');
+    if (!authHeader) {
+        return res.status(401).send('Authorization header missing');
+    }
+
+    const token = authHeader.replace('Bearer ', '');
     try {
         const decoded = jwt.verify(token, 'your_jwt_secret');
         req.user = await User.findById(decoded.id);
