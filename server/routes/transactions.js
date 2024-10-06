@@ -15,11 +15,15 @@ router.use(async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, 'your_jwt_secret');
         req.user = await User.findById(decoded.id);
+        if (!req.user) {
+            return res.status(401).send('User not found');
+        }
         next();
     } catch (err) {
         res.status(401).send('Unauthorized');
     }
 });
+
 
 router.post('/', async (req, res) => {
     const { type, category, amount } = req.body;
