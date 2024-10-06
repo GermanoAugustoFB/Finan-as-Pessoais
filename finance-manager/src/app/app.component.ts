@@ -11,10 +11,12 @@ import { RouterOutlet   } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+
+  public title = 'Finance Manager';
+
   constructor(private financeService: FinanceService) {}
 
   ngOnInit() {
-    // Exemplo de uso do serviço
     this.financeService.getTransactions('seuTokenJWT').subscribe(transactions => {
       console.log(transactions);
     });
